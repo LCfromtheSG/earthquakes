@@ -72,9 +72,12 @@ yearlist=np.arange(2000,2019,1)
 noofquakeslist = [len([z for z in get_data()['features'] if any([get_year(z) == x])]) for x in yearlist]
 maglist=[sum([get_magnitude(z) for z in get_data()['features'] if any([get_year(z) == x])]) for x in yearlist]
 
-for x in noofquakeslist:
-    try: 
-        a=x/y
-    except ZeroDivisionError:
-        a=0
-    for y in maglist:
+datalist=[]
+for x in range(len(noofquakeslist)):
+        try: 
+            a=maglist[x]/noofquakeslist[x]
+        except ZeroDivisionError:
+            a=0
+        datalist+=[a]
+
+plt.plot(yearlist,datalist)
